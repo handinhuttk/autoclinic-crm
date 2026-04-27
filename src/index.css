@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy-900: #071A2F;
+  --color-navy-800: #0A2540;
+  --color-navy-700: #0F3460;
+  --color-navy-600: #1E3A5F;
+  --color-gold: #C9A84C;
+  --color-gold-light: #E2B95A;
+
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #071A2F;
+  color-scheme: dark;
+}
+
+/* Scrollbar */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: #0F3460 transparent;
+}
+.scrollbar-thin::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: #0F3460;
+  border-radius: 2px;
+}
+
+/* Fade in animation for modals */
+@keyframes fade-in {
+  from { opacity: 0; transform: scale(0.96) translateY(8px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+.animate-fade-in {
+  animation: fade-in 0.18s ease-out forwards;
+}
+
+/* Shimmer for skeleton */
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.animate-pulse {
+  background: linear-gradient(90deg, #0F3460 25%, #1E3A5F 50%, #0F3460 75%);
+  background-size: 400px 100%;
+  animation: shimmer 1.4s infinite;
+}
