@@ -1,27 +1,19 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { DragDropContext } from '@hello-pangea/dnd';
 import KanbanColumn from './KanbanColumn';
 import LeadModal from '../leads/LeadModal';
 import Skeleton from '../ui/Skeleton';
-import { getLeads, updateLeadStage } from '../../services/api';
+import { useLeads } from '../../context/LeadsContext';
 import { KANBAN_COLUMNS } from '../../data/mockData';
 
 export default function KanbanBoard() {
-  const [leads, setLeads] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { leads, loading, moveLead } = useLeads();
   const [selectedLead, setSelectedLead] = useState(null);
-
-  useEffect(() => {
-    getLeads().then((data) => { setLeads(data); setLoading(false); });
-  }, []);
 
   const onDragEnd = useCallback(async ({ source, destination, draggableId }) => {
     if (!destination || (source.droppableId === destination.droppableId && source.index === destination.index)) return;
-
-    const newStage = destination.droppableId;
-    setLeads((prev) => prev.map((l) => l.id === draggableId ? { ...l, stage: newStage, status: newStage } : l));
-    await updateLeadStage(draggableId, newStage);
-  }, []);
+    await moveLead(draggableId, destination.droppableId);
+  }, [moveLead]);
 
   const grouped = KANBAN_COLUMNS.reduce((acc, col) => {
     acc[col.id] = leads.filter((l) => l.stage === col.id);
@@ -58,12 +50,8 @@ export default function KanbanBoard() {
 
       {selectedLead && (
         <LeadModal
-          lead={selectedLead}
+          lead={leads.find((l) => l.id === selectedLead.id) ?? selectedLead}
           onClose={() => setSelectedLead(null)}
-          onUpdate={(updated) => {
-            setLeads((prev) => prev.map((l) => l.id === updated.id ? updated : l));
-            setSelectedLead(null);
-          }}
         />
       )}
     </>

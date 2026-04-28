@@ -3,6 +3,7 @@ import Layout from './components/layout/Layout';
 import DashboardPage from './pages/DashboardPage';
 import KanbanPage from './pages/KanbanPage';
 import LeadsPage from './pages/LeadsPage';
+import { LeadsProvider } from './context/LeadsContext';
 
 const router = createBrowserRouter([
   {
@@ -17,5 +18,9 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <LeadsProvider>
+      <RouterProvider router={router} />
+    </LeadsProvider>
+  );
 }

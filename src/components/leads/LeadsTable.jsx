@@ -8,7 +8,7 @@ import { KANBAN_COLUMNS } from '../../data/mockData';
 
 const PAGE_SIZE = 10;
 
-export default function LeadsTable({ leads, loading, onUpdate }) {
+export default function LeadsTable({ leads, loading }) {
   const [search, setSearch] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
   const [page, setPage] = useState(1);
@@ -127,8 +127,7 @@ export default function LeadsTable({ leads, loading, onUpdate }) {
       </div>
 
       {selectedLead && (
-        <LeadModal lead={selectedLead} onClose={() => setSelectedLead(null)}
-          onUpdate={(updated) => { onUpdate(updated); setSelectedLead(null); }} />
+        <LeadModal lead={selectedLead} onClose={() => setSelectedLead(null)} />
       )}
     </>
   );
