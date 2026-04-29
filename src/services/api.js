@@ -4,9 +4,9 @@ import {
   META_ADS_CAMPAIGNS, META_ADS_COMPARISON,
 } from '../data/mockData';
 
-const USE_MOCK   = true; // Mude para false após configurar o PostgreSQL
+const USE_MOCK   = import.meta.env.VITE_USE_MOCK === 'true';
 const DELAY      = 800;
-const API_BASE   = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+const API_BASE   = import.meta.env.VITE_API_URL || 'http://72.62.136.15:3001/api';
 const CLIENTE_ID = 1;
 
 const delay = (ms) => new Promise((r) => setTimeout(r, ms));
