@@ -5,7 +5,7 @@ export default function KanbanColumn({ column, leads, onCardClick }) {
   const total = leads.reduce((sum, l) => sum + l.valor, 0);
 
   return (
-    <div className="flex flex-col w-64 shrink-0 bg-navy-800/60 border border-navy-700/40 rounded-2xl overflow-hidden">
+    <div className="flex flex-col w-64 shrink-0 bg-navy-800/60 border border-navy-700/40 rounded-2xl">
       {/* Column Header */}
       <div className="px-3.5 py-3 border-b border-navy-700/40">
         <div className="flex items-center justify-between mb-1">

@@ -1,10 +1,11 @@
 import { NavLink } from 'react-router';
-import { LayoutDashboard, KanbanSquare, Users, ChevronLeft, ChevronRight, Bot } from 'lucide-react';
+import { LayoutDashboard, KanbanSquare, Users, BarChart2, ChevronLeft, ChevronRight, Bot } from 'lucide-react';
 
 const NAV = [
-  { to: '/',       icon: LayoutDashboard, label: 'Dashboard' },
-  { to: '/kanban', icon: KanbanSquare,    label: 'Kanban'    },
-  { to: '/leads',  icon: Users,           label: 'Leads'     },
+  { to: '/',        icon: LayoutDashboard, label: 'Dashboard'  },
+  { to: '/kanban',  icon: KanbanSquare,    label: 'Kanban'     },
+  { to: '/leads',   icon: Users,           label: 'Leads'      },
+  { to: '/metaads', icon: BarChart2,       label: 'Meta Ads'   },
 ];
 
 export default function Sidebar({ collapsed, onToggle }) {

@@ -11,17 +11,16 @@ export default function LeadCard({ lead, index, onClick }) {
         <div
           ref={provided.innerRef}
           {...provided.draggableProps}
+          {...provided.dragHandleProps}
           onClick={() => onClick(lead)}
-          className={`group bg-navy-800 border rounded-xl p-3.5 cursor-pointer select-none transition-all duration-150
+          className={`group bg-navy-800 border rounded-xl p-3.5 select-none transition-all duration-150
             ${snapshot.isDragging
-              ? 'border-gold/40 shadow-xl shadow-black/40 rotate-1 scale-105'
-              : 'border-navy-700/50 hover:border-navy-600/80 hover:shadow-lg hover:shadow-black/20'
+              ? 'border-gold/40 shadow-xl shadow-black/50 scale-105 cursor-grabbing'
+              : 'border-navy-700/50 hover:border-navy-600/80 hover:shadow-lg hover:shadow-black/20 cursor-grab'
             }`}
         >
           <div className="flex items-start gap-2">
-            <div {...provided.dragHandleProps} className="mt-0.5 text-gray-600 hover:text-gray-400 transition-colors cursor-grab active:cursor-grabbing">
-              <GripVertical size={14} />
-            </div>
+            <GripVertical size={13} className="mt-0.5 shrink-0 text-gray-700 group-hover:text-gray-500 transition-colors" />
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-2">
                 <Avatar initials={lead.avatar} size="sm" />
