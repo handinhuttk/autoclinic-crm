@@ -4,6 +4,7 @@ import DashboardPage from './pages/DashboardPage';
 import KanbanPage from './pages/KanbanPage';
 import LeadsPage from './pages/LeadsPage';
 import MetaAdsPage from './pages/MetaAdsPage';
+import SettingsPage from './pages/SettingsPage';
 import { LeadsProvider } from './context/LeadsContext';
 import { ClienteProvider } from './context/ClienteContext';
 
@@ -15,7 +16,8 @@ const router = createBrowserRouter([
       { index: true,      element: <DashboardPage /> },
       { path: 'kanban',   element: <KanbanPage />    },
       { path: 'leads',    element: <LeadsPage />     },
-      { path: 'metaads',  element: <MetaAdsPage />   },
+      { path: 'metaads',         element: <MetaAdsPage />   },
+      { path: 'configuracoes',   element: <SettingsPage />  },
     ],
   },
 ]);

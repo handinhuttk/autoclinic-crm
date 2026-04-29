@@ -1,11 +1,15 @@
 import { NavLink } from 'react-router';
-import { LayoutDashboard, KanbanSquare, Users, BarChart2, ChevronLeft, ChevronRight, Bot } from 'lucide-react';
+import { LayoutDashboard, KanbanSquare, Users, BarChart2, Settings, ChevronLeft, ChevronRight, Bot } from 'lucide-react';
 
-const NAV = [
+const NAV_MAIN = [
   { to: '/',        icon: LayoutDashboard, label: 'Dashboard'  },
   { to: '/kanban',  icon: KanbanSquare,    label: 'Kanban'     },
   { to: '/leads',   icon: Users,           label: 'Leads'      },
   { to: '/metaads', icon: BarChart2,       label: 'Meta Ads'   },
+];
+
+const NAV_BOTTOM = [
+  { to: '/configuracoes', icon: Settings, label: 'Configurações' },
 ];
 
 export default function Sidebar({ collapsed, onToggle }) {
@@ -28,24 +32,44 @@ export default function Sidebar({ collapsed, onToggle }) {
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 py-4 space-y-1 px-2">
-        {NAV.map(({ to, icon: Icon, label }) => (
-          <NavLink
-            key={to}
-            to={to}
-            end={to === '/'}
-            className={({ isActive }) =>
-              `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 group
-              ${isActive
-                ? 'bg-gold/10 text-gold border border-gold/20'
-                : 'text-gray-400 hover:text-white hover:bg-navy-700/50'
-              }`
-            }
-          >
-            <Icon size={18} className="shrink-0" />
-            {!collapsed && <span className="whitespace-nowrap">{label}</span>}
-          </NavLink>
-        ))}
+      <nav className="flex flex-col flex-1 py-4 px-2">
+        <div className="flex-1 space-y-1">
+          {NAV_MAIN.map(({ to, icon: Icon, label }) => (
+            <NavLink
+              key={to}
+              to={to}
+              end={to === '/'}
+              className={({ isActive }) =>
+                `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150
+                ${isActive
+                  ? 'bg-gold/10 text-gold border border-gold/20'
+                  : 'text-gray-400 hover:text-white hover:bg-navy-700/50'
+                }`
+              }
+            >
+              <Icon size={18} className="shrink-0" />
+              {!collapsed && <span className="whitespace-nowrap">{label}</span>}
+            </NavLink>
+          ))}
+        </div>
+        <div className="space-y-1 pt-2 border-t border-navy-700/30">
+          {NAV_BOTTOM.map(({ to, icon: Icon, label }) => (
+            <NavLink
+              key={to}
+              to={to}
+              className={({ isActive }) =>
+                `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150
+                ${isActive
+                  ? 'bg-gold/10 text-gold border border-gold/20'
+                  : 'text-gray-400 hover:text-white hover:bg-navy-700/50'
+                }`
+              }
+            >
+              <Icon size={18} className="shrink-0" />
+              {!collapsed && <span className="whitespace-nowrap">{label}</span>}
+            </NavLink>
+          ))}
+        </div>
       </nav>
 
       {/* Toggle */}

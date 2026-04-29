@@ -135,3 +135,46 @@ export async function syncMetaAds() {
   if (USE_MOCK) { await delay(2000); return { success: true, upserted: 87 }; }
   return apiFetch(`/metaads/sync/${CLIENTE_ID}`, { method: 'POST' });
 }
+
+// ─── Settings / Connectors ────────────────────────────────────────────────────
+
+export async function getConnectorStatus() {
+  if (USE_MOCK) {
+    await delay(400);
+    return {
+      meta:     { connected: false, adAccountId: null },
+      whatsapp: { connected: false, instanceId: null, connectedAt: null },
+    };
+  }
+  return apiFetch(`/clients/${CLIENTE_ID}/status`);
+}
+
+export async function getMetaAdsAccounts(accessToken) {
+  if (USE_MOCK) {
+    await delay(900);
+    return [
+      { id: '1234567890', name: 'AutoClinic Ads — Principal', currency: 'BRL' },
+      { id: '9876543210', name: 'AutoClinic Ads — Teste',     currency: 'BRL' },
+    ];
+  }
+  const params = new URLSearchParams({ access_token: accessToken });
+  return apiFetch(`/metaads/accounts?${params}`);
+}
+
+export async function connectWhatsApp({ instanceId, token }) {
+  if (USE_MOCK) { await delay(1200); return { connected: true, instanceId }; }
+  return apiFetch(`/clients/${CLIENTE_ID}/whatsapp`, {
+    method: 'PATCH',
+    body:   JSON.stringify({ instance_id: instanceId, token }),
+  });
+}
+
+export async function disconnectWhatsApp() {
+  if (USE_MOCK) { await delay(400); return { disconnected: true }; }
+  return apiFetch(`/clients/${CLIENTE_ID}/whatsapp`, { method: 'DELETE' });
+}
+
+export async function disconnectMeta() {
+  if (USE_MOCK) { await delay(400); return { disconnected: true }; }
+  return apiFetch(`/clients/${CLIENTE_ID}/meta`, { method: 'DELETE' });
+}
