@@ -57,7 +57,15 @@ export async function updateLead(id, data) {
 
 export async function getDashboardStats() {
   if (USE_MOCK) { await delay(DELAY); return { ...DASHBOARD_STATS }; }
-  return apiFetch(`/dashboard/stats?cliente_id=${CLIENTE_ID}`);
+  const d = await apiFetch(`/dashboard/stats?cliente_id=${CLIENTE_ID}`);
+  return {
+    leadsHoje:        0,
+    agendamentosHoje: d.scheduledThisMonth ?? 0,
+    taxaConversao:    d.conversionRate      ?? 0,
+    receitaMes:       d.revenueThisMonth    ?? 0,
+    leadsMes:         d.leadsThisMonth      ?? 0,
+    atendimentosMes:  d.attendedByAI        ?? 0,
+  };
 }
 
 export async function getRevenueData() {
@@ -77,7 +85,17 @@ export async function getOrigemData() {
 
 export async function getRecentAppointments() {
   if (USE_MOCK) { await delay(DELAY); return [...RECENT_APPOINTMENTS]; }
-  return apiFetch(`/leads?cliente_id=${CLIENTE_ID}&status=agendado&limit=5`);
+  const d = await apiFetch(`/leads?cliente_id=${CLIENTE_ID}&status=agendado&limit=5`);
+  const leads = d.leads ?? d ?? [];
+  return leads.map((l) => ({
+    id:     l.id,
+    name:   l.nome   ?? '-',
+    exame:  l.exame  ?? '-',
+    status: l.status ?? 'agendado',
+    time:   l.scheduled_at
+      ? new Date(l.scheduled_at).toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }).replace(',', ' —')
+      : '-',
+  }));
 }
 
 // ─── Meta Ads ─────────────────────────────────────────────────────────────────
